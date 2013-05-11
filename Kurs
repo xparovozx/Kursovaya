@@ -1,0 +1,385 @@
+Текст программы Form1.h:
+#pragma once
+
+#include "ShowKeyWords.h"
+
+namespace Editor 
+{
+
+  using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Collections::Generic;
+	using namespace System::Windows::Forms;
+	using namespace System::Data;
+	using namespace System::Drawing;
+	using namespace System::IO;
+
+	/// <summary>
+	/// Сводка для Form1
+	/// </summary>
+	public ref class Form1 :
+		public System::Windows::Forms::Form
+	{
+	public:
+		Form1(void)
+		{
+			InitializeComponent();
+			
+			// массив слов для выделения
+			keyWords = nullptr;
+		}
+
+	protected:
+		/// <summary>
+		/// Освободить все используемые ресурсы.
+		/// </summary>
+		~Form1()
+		{
+			if (components)
+			{
+				delete components;
+			}
+		}
+	private: System::Windows::Forms::MenuStrip^  menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  openFileToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator1;
+	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  keyWordsToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  loadToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  showToolStripMenuItem;
+	private: System::Windows::Forms::RichTextBox^  richTextBox1;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog2;
+
+	private:
+		/// <summary>
+		/// Требуется переменная конструктора.
+		/// </summary>
+		System::ComponentModel::Container ^components;
+
+#pragma region Windows Form Designer generated code
+		/// <summary>
+		/// Обязательный метод для поддержки конструктора - не изменяйте
+		/// содержимое данного метода при помощи редактора кода.
+		/// </summary>
+		void InitializeComponent(void)
+		{
+			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->openFileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->keyWordsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->loadToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->showToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->openFileDialog2 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->menuStrip1->SuspendLayout();
+			this->SuspendLayout();
+			// 
+			// menuStrip1
+			// 
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->fileToolStripMenuItem, 
+				this->keyWordsToolStripMenuItem});
+			this->menuStrip1->Location = System::Drawing::Point(0, 0);
+			this->menuStrip1->Name = L"menuStrip1";
+			this->menuStrip1->Padding = System::Windows::Forms::Padding(8, 2, 0, 2);
+			this->menuStrip1->Size = System::Drawing::Size(502, 24);
+			this->menuStrip1->TabIndex = 0;
+			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// fileToolStripMenuItem
+			// 
+			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {this->openFileToolStripMenuItem, 
+				this->toolStripSeparator1, this->exitToolStripMenuItem});
+			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
+			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 20);
+			this->fileToolStripMenuItem->Text = L"&File";
+			// 
+			// openFileToolStripMenuItem
+			// 
+			this->openFileToolStripMenuItem->Name = L"openFileToolStripMenuItem";
+			this->openFileToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->openFileToolStripMenuItem->Text = L"&Open file";
+			this->openFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::openFileToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this->toolStripSeparator1->Name = L"toolStripSeparator1";
+			this->toolStripSeparator1->Size = System::Drawing::Size(149, 6);
+			// 
+			// exitToolStripMenuItem
+			// 
+			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
+			this->exitToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->exitToolStripMenuItem->Text = L"&Exit";
+			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::exitToolStripMenuItem_Click);
+			// 
+			// keyWordsToolStripMenuItem
+			// 
+			this->keyWordsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->loadToolStripMenuItem, 
+				this->showToolStripMenuItem});
+			this->keyWordsToolStripMenuItem->Name = L"keyWordsToolStripMenuItem";
+			this->keyWordsToolStripMenuItem->Size = System::Drawing::Size(73, 20);
+			this->keyWordsToolStripMenuItem->Text = L"&Key words";
+			// 
+			// loadToolStripMenuItem
+			// 
+			this->loadToolStripMenuItem->Name = L"loadToolStripMenuItem";
+			this->loadToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->loadToolStripMenuItem->Text = L"&Load";
+			this->loadToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::loadToolStripMenuItem_Click);
+			// 
+			// showToolStripMenuItem
+			// 
+			this->showToolStripMenuItem->Name = L"showToolStripMenuItem";
+			this->showToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->showToolStripMenuItem->Text = L"&Show";
+			this->showToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::showToolStripMenuItem_Click);
+			// 
+			// richTextBox1
+			// 
+			this->richTextBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->richTextBox1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(204)));
+			this->richTextBox1->Location = System::Drawing::Point(12, 27);
+			this->richTextBox1->Name = L"richTextBox1";
+			this->richTextBox1->Size = System::Drawing::Size(478, 348);
+			this->richTextBox1->TabIndex = 1;
+			this->richTextBox1->Text = L"";
+			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->Filter = L"C++ files (*.h; *.cpp)|*.h; *.cpp";
+			this->openFileDialog1->Title = L"Select code file";
+			this->openFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &Form1::openFileDialog1_FileOk);
+			// 
+			// openFileDialog2
+			// 
+			this->openFileDialog2->Filter = L"Text files (*.txt)|*.txt";
+			this->openFileDialog2->Title = L"Select code file";
+			this->openFileDialog2->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &Form1::openFileDialog2_FileOk);
+			// 
+			// Form1
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
+			this->ClientSize = System::Drawing::Size(502, 387);
+			this->Controls->Add(this->richTextBox1);
+			this->Controls->Add(this->menuStrip1);
+			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(204)));
+			this->MainMenuStrip = this->menuStrip1;
+			this->Margin = System::Windows::Forms::Padding(4);
+			this->Name = L"Form1";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
+			this->Text = L"Key words highlights";
+			this->menuStrip1->ResumeLayout(false);
+			this->menuStrip1->PerformLayout();
+			this->ResumeLayout(false);
+			this->PerformLayout();
+
+		}
+#pragma endregion
+
+		// массив слов для выделения
+	private: array<String^>^ keyWords;
+
+			 // обработчик нажатия кнопки "Загрузить слова в программу"
+	private: System::Void loadToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
+			 {
+				 // показываем диалог для выбора файла со словами
+				 openFileDialog2->ShowDialog();
+			 }
+
+			 // обработкчик нажатия кнопки "Открыть файл с кодом"
+	private: System::Void openFileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+			 {
+				 // показать диалог для выбора файла
+				 openFileDialog1->ShowDialog();
+			 }
+
+			 // обработчик нажатия кнопки "Выход из программы"
+	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+			 {
+				 // закрываем приложение
+				 Application::Exit();
+			 }
+
+			 // обработчик нажатия кнопки "Показать слова для выделения"
+	private: System::Void showToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+			 {
+				 // создание окна, где будет показыван список слов для выделения 
+				 ShowKeyWords ^ form = gcnew ShowKeyWords(keyWords);
+				 // показываем это окно
+				 form->ShowDialog();
+			 }
+
+			 // метод вызывается если удачно выбран файл с кодом
+	private: System::Void openFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e)
+			 {
+				 // если мы открыли файл, но не загрузили в программу ключевые слова, то выходим
+				 if (keyWords == nullptr)
+					 return;
+
+				 // открываем файл на чтение
+				 StreamReader ^ reader = gcnew StreamReader(openFileDialog1->FileName);
+				 // чтение всего файла и показываем текст на форме
+				 richTextBox1->Text = reader->ReadToEnd();
+				 // удаляем дескриптор файла
+				 delete reader;
+
+				 // по все словам для выделения
+				 for (int j = 0; j < keyWords->Length; ++j)
+				 {
+					 // берем очередное слово для выделения
+					String ^ str = keyWords[j];
+					int i = 0;
+
+					// до тех пор пока есть место для поиска выделенных слов в тексте
+					while (i <= richTextBox1->Text->Length - str->Length)
+					{
+						// находим позицию слова в тексте
+						i = richTextBox1->Text->IndexOf(str, i);
+						// если пои=зиция не найдена, то выходим из текущего цикла
+						if (i < 0)
+							break;
+
+						// выделяем слово на форме
+						richTextBox1->SelectionStart = i;
+						richTextBox1->SelectionLength = str->Length;
+						// меняем его цвет на синий
+						richTextBox1->SelectionColor = Color::Blue;
+						i += str->Length;
+					}
+				 }
+			 }
+
+			 // если удачно выбран файл со словами для выделенмя
+	private: System::Void openFileDialog2_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) 
+			 {
+				 // создание массива разделителей
+				 array<String^>^ splitters = gcnew array<String^>(4);
+				 splitters[0] = " ";
+				 splitters[1] = "\n";
+				 splitters[2] = "\r";
+				 splitters[3] = "\t";
+
+				 // открываем файл на чтение
+				 StreamReader ^ reader = gcnew StreamReader(openFileDialog2->FileName);
+				 // читаем файл и разбиваем его на слова используя разделителиы
+				 keyWords = reader->ReadToEnd()->Split(splitters, StringSplitOptions::RemoveEmptyEntries);
+				 delete reader;
+			 }
+};
+}
+
+
+
+Текст программы ShowKeyWords.h:
+#pragma once
+
+namespace Editor
+{
+
+	using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Windows::Forms;
+	using namespace System::Collections::Generic;
+	using namespace System::Data;
+	using namespace System::Drawing;
+
+	/// <summary>
+	/// Сводка для ShowKeyWords
+	/// </summary>
+	public ref class ShowKeyWords : public System::Windows::Forms::Form
+	{
+	public:
+		ShowKeyWords(array<String^>^ words)
+		{
+			InitializeComponent();
+
+			if (words != nullptr)
+				for (Int32 i = 0; i < words->Length; ++i)
+					listView1->Items->Add(words[i]);
+		}
+
+	protected:
+		/// <summary>
+		/// Освободить все используемые ресурсы.
+		/// </summary>
+		~ShowKeyWords()
+		{
+			if (components)
+			{
+				delete components;
+			}
+		}
+	private: System::Windows::Forms::ListView^  listView1;
+	protected: 
+	private: System::Windows::Forms::ColumnHeader^  columnHeader1;
+
+	private:
+		/// <summary>
+		/// Требуется переменная конструктора.
+		/// </summary>
+		System::ComponentModel::Container ^components;
+
+#pragma region Windows Form Designer generated code
+		/// <summary>
+		/// Обязательный метод для поддержки конструктора - не изменяйте
+		/// содержимое данного метода при помощи редактора кода.
+		/// </summary>
+		void InitializeComponent(void)
+		{
+			this->listView1 = (gcnew System::Windows::Forms::ListView());
+			this->columnHeader1 = (gcnew System::Windows::Forms::ColumnHeader());
+			this->SuspendLayout();
+			// 
+			// listView1
+			// 
+			this->listView1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->listView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(1) {this->columnHeader1});
+			this->listView1->FullRowSelect = true;
+			this->listView1->GridLines = true;
+			this->listView1->Location = System::Drawing::Point(12, 12);
+			this->listView1->Name = L"listView1";
+			this->listView1->Size = System::Drawing::Size(396, 304);
+			this->listView1->TabIndex = 0;
+			this->listView1->UseCompatibleStateImageBehavior = false;
+			this->listView1->View = System::Windows::Forms::View::Details;
+			// 
+			// columnHeader1
+			// 
+			this->columnHeader1->Text = L"Word";
+			this->columnHeader1->Width = 179;
+			// 
+			// ShowKeyWords
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
+			this->ClientSize = System::Drawing::Size(420, 328);
+			this->Controls->Add(this->listView1);
+			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(204)));
+			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->Name = L"ShowKeyWords";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
+			this->Text = L"Key words";
+			this->ResumeLayout(false);
+
+		}
+#pragma endregion
+	};
+}
+
